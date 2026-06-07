@@ -61,7 +61,7 @@ module "eks" {
       principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/github-actions-ai-reviewer"
       policy_associations = {
         admin = {
-          policy_arn   = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
           access_scope = {
             type = "cluster"
           }
@@ -91,7 +91,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     default = {
-      instance_types = ["t3.medium"]
+      instance_types = ["t3.micro"]
 
       min_size     = 1
       max_size     = 3
@@ -166,15 +166,15 @@ resource "aws_db_subnet_group" "main" {
 }
 
 resource "aws_db_instance" "postgres" {
-  identifier        = "${var.cluster_name}-postgres"
-  engine            = "postgres"
-  engine_version    = "15"
-  instance_class    = "db.t3.micro"
-  allocated_storage = 20
-  db_name           = "codereviewer"
-  username          = "dbadmin"
-  password          = var.db_password
-  multi_az          = false
+  identifier          = "${var.cluster_name}-postgres"
+  engine              = "postgres"
+  engine_version      = "15"
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 20
+  db_name             = "codereviewer"
+  username            = "dbadmin"
+  password            = var.db_password
+  multi_az            = false
   publicly_accessible = false
   skip_final_snapshot = true
 
@@ -215,8 +215,8 @@ resource "aws_iam_policy" "lbc" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect   = "Allow"
-        Action   = [
+        Effect = "Allow"
+        Action = [
           "elasticloadbalancing:*",
           "ec2:CreateSecurityGroup",
           "ec2:DeleteSecurityGroup",
@@ -252,7 +252,7 @@ resource "aws_iam_role_policy_attachment" "lbc" {
 }
 
 resource "aws_s3_bucket" "reports" {
-  bucket = "ai-code-reviewer-reports"
+  bucket = "ai-code-reviewer-reports-rajamohan-20260607"
 
   tags = {
     Environment = var.environment
